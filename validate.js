@@ -3,6 +3,7 @@ const req = document.getElementById("hint");
 const spass = document.getElementById("spass");
 const scpass = document.getElementById("scpass");
 const eye = document.getElementById("eye");
+const otpcnt = document.querySelector(".otp-cnt");
 
 const digit = [document.querySelector(".digit"), document.querySelector(".digit i")];
 const mix = [document.querySelector(".mix"), document.querySelector(".mix i")];
@@ -12,7 +13,7 @@ const len = [document.querySelector(".len"), document.querySelector(".len i")];
 let cflag = {
     "sign-no": 0,
     "password": 0,
-    "repassword": 0
+    "sign-cpass": 0
 }
 
 const passpattern = {
@@ -47,12 +48,12 @@ function repasscheck(){
         const addic = document.querySelector(".sign-cpass>i");
         if(cflag["password"] == 1 && scpass.value == spass.value){
             scpass.style.border = "2px solid yellowgreen";
-            cflag["repassword"] = 1;
+            cflag["sign-cpass"] = 1;
             addic.className = "fas fa-check-circle";
         }
         else{
             scpass.style.border = "2px solid red";
-            cflag["repassword"] = 0;
+            cflag["sign-cpass"] = 0;
             addic.className = "fas fa-times-circle";
         }
     }
@@ -80,12 +81,13 @@ inp.forEach((input) => {
             if(input.value.length == 0){    addic.className = " "; return;  }
             if(cflag["password"] == 1 && input.value == spass.value){
                 input.style.border = "2px solid yellowgreen";
-                cflag["repassword"] = 1;
+                cflag["sign-cpass"] = 1;
                 addic.className = "fas fa-check-circle";
+                otpcnt.style.display = "initial";
             }
             else{
                 input.style.border = "2px solid red";
-                cflag["repassword"] = 0;
+                cflag["sign-cpass"] = 0;
                 addic.className = "fas fa-times-circle";
             }
         }

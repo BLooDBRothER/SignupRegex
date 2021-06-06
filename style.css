@@ -28,6 +28,7 @@ input[type=number] {
 }
 
 body{
+    overflow-x: hidden;
     min-height: 100vh;
     background-color: black;
     background: repeating-linear-gradient(
