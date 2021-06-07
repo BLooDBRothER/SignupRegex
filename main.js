@@ -21,6 +21,9 @@ sotp.addEventListener("click", function(){
     if(check() == 0){
         return;
     }
+    console.log("inside");
+    otpvalid = 0;
+    sotpinp.value = "";
     disable();
     changeic();
     backotp();
@@ -92,14 +95,13 @@ sign.addEventListener("submit", function(e){
     }
     if(otpvalid == 0){
         sotpinp.focus();
-        sign.repor
         return;
     }
     let dataString = JSON.stringify({
         "ph": sph.value,
         "pass": spass.value
     });
-    console.log(dataString);
+    console.log(dataString, "\n Will be added to database in future....");
     reset();
 });
 
