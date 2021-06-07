@@ -14,7 +14,7 @@
     <div class="container">
         <div class="signup-cnt">
             <h2>Sign up</h2>
-            <form id="signup">
+            <form id="signup" action="">
                 <div class="grp sign-no">
                     <label class="detail" for="sph">Mobile No: </label>
                     <span class="ph">+91</span><input type="number" name="sign-no" id="sph" class="inp-fld" required autocomplete="off">
@@ -23,7 +23,9 @@
 
                 <div class="grp passgrp">
                     <label for="spass">Password: </label>
-                    <input type="password" name="sign-pass" id="spass" required autocomplete="off" ><i class="fas fa-eye" id="eye"></i>
+                    <span class="icwrap">
+                        <input type="password" name="sign-pass" id="spass" required autocomplete="off" ><i class="fas fa-eye" id="eye"></i>
+                    </span>
                     <div class="required" id="hint">
                         <p class="digit"><i class="fas fa-times-circle"></i>Should not begin with Number</p>
                         <P class="mix"><i class="fas fa-times-circle"></i>Must be a Mixture of UpperCase, LowerCase, Numbers</P>
@@ -40,14 +42,14 @@
 
                 <div class="grp otp-cnt">
                     <label for="sotp">OTP: </label>
-                    <input type="text" maxlength="4" name="sign-otp" id="sotp" class="inp-fld" required>
-                    <span><button class="btn rotp">Resend OTP</button></span>
+                    <input type="text" maxlength="4" name="sign-otp" id="sotp" autocomplete="off">
+                    <span><button type="button" id="otp-send" class="btn rotp">Resend OTP</button></span>
                 </div>
 
                 <button type="submit" class="btn fin-btn">Signup</button>
             </form>
         </div>
-        <div class="login-cnt">
+        <div class="login-cnt" action="">
             <h2>Login</h2>
             <form id="login">
                 <div class="grp">

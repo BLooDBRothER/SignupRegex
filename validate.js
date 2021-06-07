@@ -4,11 +4,19 @@ const spass = document.getElementById("spass");
 const scpass = document.getElementById("scpass");
 const eye = document.getElementById("eye");
 const otpcnt = document.querySelector(".otp-cnt");
+const sph = document.getElementById("sph");
+const sotp = document.getElementById('otp-send');
+const sotpinp = document.getElementById('sotp');
+const eic = document.querySelector(".sign-no i");
+const ric = document.querySelector(".sign-cpass i");
 
+const all = document.querySelector(".required p i");
 const digit = [document.querySelector(".digit"), document.querySelector(".digit i")];
 const mix = [document.querySelector(".mix"), document.querySelector(".mix i")];
 const spe = [document.querySelector(".spe"), document.querySelector(".spe i")];
 const len = [document.querySelector(".len"), document.querySelector(".len i")];
+
+let otpvalid = 0, autofl=0;
 
 let cflag = {
     "sign-no": 0,
@@ -26,7 +34,8 @@ const passpattern = {
 }
 
 const patterns = {
-    "sign-no": /^\d{10}$/ 
+    "sign-no": /^\d{10}$/ ,
+    "otp": /^\d+$/
 }
 
 function rtest(data, name){
@@ -50,6 +59,8 @@ function repasscheck(){
             scpass.style.border = "2px solid yellowgreen";
             cflag["sign-cpass"] = 1;
             addic.className = "fas fa-check-circle";
+            otpcnt.style.display = "initial";
+            otpsend();
         }
         else{
             scpass.style.border = "2px solid red";
@@ -84,6 +95,7 @@ inp.forEach((input) => {
                 cflag["sign-cpass"] = 1;
                 addic.className = "fas fa-check-circle";
                 otpcnt.style.display = "initial";
+                otpsend();
             }
             else{
                 input.style.border = "2px solid red";
@@ -154,4 +166,21 @@ eye.addEventListener("click", () => {
         scpass.type = "text";
     }
     
+});
+
+sotpinp.addEventListener("input", () => {
+    sotpinp.setCustomValidity("");
+    if(!patterns["otp"].test(sotpinp.value)){
+        sotpinp.value = "";
+    }
+    if(sotpinp.value.length == 4){
+        if(+sotpinp.value == randno){
+            otpvalid = 1;
+            sotpinp.setCustomValidity("");
+        }
+        else{
+            otpvalid = 0;
+            sotpinp.setCustomValidity("Invalid OTP");
+        }
+    }
 });
