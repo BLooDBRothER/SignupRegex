@@ -34,7 +34,7 @@ function backotp(){
     $.ajax({
         async: true,
         crossDomain: true,
-        url: `https://2factor.in/API/V1/c902a01f-baa3-11eb-8089-0200cd936042/SMS/${sph.value}/${randno}`,
+        url: `https://2factor.in/API/V1/{API-KEY}/SMS/${sph.value}/${randno}`,
         method: "GET",
         headers: {
             "content-type": "application/x-www-form-urlencoded"
