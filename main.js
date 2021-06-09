@@ -2,7 +2,19 @@ const login = document.getElementById('login');
 const sign = document.getElementById('signup');
 const ph = document.getElementById('ph');
 const pass = document.getElementById('pass');
+const signbtn = document.getElementById("si-btn");
+const msg = document.querySelector(".msg");
+const msgotp = document.querySelector(".msg-otp");
 let randno;
+
+function validmsg(message){
+    msg.innerHTML = message;
+    msg.style.display = "initial";
+    setTimeout(()=>{
+        msg.innerHTML = message;
+        msg.style.display = "none";
+    }, 3000)
+}
 
 function otpsend(){
     if(cflag["sign-no"] == 1 && autofl == 0){
@@ -11,46 +23,24 @@ function otpsend(){
         backotp();
     }
     else if(cflag["sign-no"] == 0 && autofl == 0){
-        sotp.innerText = "Send OTP"
+        sotp.className = "fas fa-share-square rotp";
         check();
     }
     autofl = 1;
 }
 
-sotp.addEventListener("click", function(){
-    if(check() == 0){
-        return;
-    }
-    console.log("inside");
-    otpvalid = 0;
-    sotpinp.value = "";
-    disable();
-    changeic();
-    backotp();
-    sotp.innerText = "Resend OTP";
-});
-
 function backotp(){
     randno = Math.floor(Math.random() * (9999-1000)) + 1000;
     console.log(randno);
-    // $.ajax({
-    //     async: true,
-    //     crossDomain: true,
-    //    url: `http://2factor.in/API/V1/c902a01f-baa3-11eb-8089-0200cd936042/SMS/${phoneno}/${randno}`,
-    //     method: "GET",
-    //     headers: {
-    //         "content-type": "application/x-www-form-urlencoded"
-    //     },
-    //     data: {},
-    //     success: function(data){
-    //         console.log(data);
-    //     }
-    // });
+    msgotp.style.display = "initial";
+    msgotp.innerHTML = randno; 
+    validmsg("OTP Sent Check your Mobile no");
 }
 
 function check(){
     if(cflag["sign-no"] == 0){
         sph.focus();
+        signbtn.click();
         return 0;
     }
     else if(cflag["password"] == 0){
@@ -73,13 +63,30 @@ function reset(){
     sph.value = spass.value = scpass.value = sotpinp.value = "";
     req.style.display = otpcnt.style.display = "none";
     eic.className = ric.className = all.className = "";
+    passic.className = "";
     cflag["password"] = cflag["sign-cpass"] = cflag["sign-no"] = autofl = otpvalid = 0;
+    eye.style.right = "20px";
 }
 
 function changeic(){
     eic.className = "fas fa-edit";
     eic.style.cursor = "pointer";
 }
+
+sotp.addEventListener("click", function(){
+    if(check() == 0){
+        return;
+    }
+    if(sotp.className == "fas fa-share-square rotp"){
+        sotp.className = "fas fa-retweet rotp";
+    }
+    console.log("inside");
+    otpvalid = 0;
+    sotpinp.value = "";
+    disable();
+    changeic();
+    backotp();
+});
 
 eic.addEventListener("click", function() {
     eic.className = " ";
@@ -88,8 +95,11 @@ eic.addEventListener("click", function() {
 });
 
 sign.addEventListener("submit", function(e){
+    formSubmit(e);
+});
+
+function formSubmit(e){
     e.preventDefault();
-    console.log("hi")
     if(check() == 0){
         return;
     }
@@ -97,28 +107,6 @@ sign.addEventListener("submit", function(e){
         sotpinp.focus();
         return;
     }
-    let dataString = JSON.stringify({
-        "ph": sph.value,
-        "pass": spass.value
-    });
-    console.log(dataString, "\n Will be added to database in future....");
+    validmsg("Registered Successfully");
     reset();
-});
-
-login.addEventListener("submit", function(e){
-    e.preventDefault();
-    let dataString = JSON.stringify({
-        "ph": ph.value,
-        "pass": pass.value
-    });
-    console.log(dataString);
-    $.ajax({
-        method: "POST",
-        url: "/insert",
-        contentType : "application/json",
-        data: dataString,
-        success: function(data){
-            console.log(data);
-        }
-    });
-});
+}

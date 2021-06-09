@@ -9,6 +9,7 @@ const sotp = document.getElementById('otp-send');
 const sotpinp = document.getElementById('sotp');
 const eic = document.querySelector(".sign-no i");
 const ric = document.querySelector(".sign-cpass i");
+const passic = document.getElementById("passic");
 
 const all = document.querySelector(".required p i");
 const digit = [document.querySelector(".digit"), document.querySelector(".digit i")];
@@ -39,7 +40,7 @@ const patterns = {
 }
 
 function rtest(data, name){
-    let sts = document.querySelector(`.${name}>i`);
+    let sts = document.querySelector(`.${name} i`);
     if(patterns[name].test(data.value) == true){
         cflag[name] = 1;
         sts.className = "fas fa-check-circle";
@@ -54,12 +55,12 @@ function rtest(data, name){
 
 function repasscheck(){
     if(scpass.value.length > 7){
-        const addic = document.querySelector(".sign-cpass>i");
+        const addic = document.querySelector(".sign-cpass i");
         if(cflag["password"] == 1 && scpass.value == spass.value){
             scpass.style.border = "2px solid yellowgreen";
             cflag["sign-cpass"] = 1;
             addic.className = "fas fa-check-circle";
-            otpcnt.style.display = "initial";
+            otpcnt.style.display = "flex";
             otpsend();
         }
         else{
@@ -82,19 +83,23 @@ inp.forEach((input) => {
     })
 
     input.addEventListener("input", ()=>{
-        let name = input.getAttribute("name")
+        let name = input.getAttribute("name");
         if(name == "sign-no"){
-            if(input.value.length == 0){    document.querySelector(`.${name}>i`).className = "";    }
+            sph.setCustomValidity("");
+            if(input.value.length == 0){    document.querySelector(`.${name} i`).className = "";    }
             else{   rtest(input, name); }
+            if(cflag["sign-no"] == 1){
+                mobilecheck(input.value);
+            }
         }
         else{
-            const addic = document.querySelector(`.${name}>i`);
+            const addic = document.querySelector(`.${name} i`);
             if(input.value.length == 0){    addic.className = " "; return;  }
             if(cflag["password"] == 1 && input.value == spass.value){
                 input.style.border = "2px solid yellowgreen";
                 cflag["sign-cpass"] = 1;
                 addic.className = "fas fa-check-circle";
-                otpcnt.style.display = "initial";
+                otpcnt.style.display = "flex";
                 otpsend();
             }
             else{
@@ -109,9 +114,9 @@ inp.forEach((input) => {
 
 spass.addEventListener("input", () => {
     if(spass.value.length == 0){
-        req.style.display="none";
-    }
+        req.style.display="none";    }
     if(spass.value.length > 0){
+        console.log("in");
         req.style.display="initial";
     }
 
@@ -137,10 +142,20 @@ spass.addEventListener("input", () => {
     if(pst == tick && pmix == tick && pspe == tick && plen == tick){
         cflag["password"] = 1;
         spass.style.border = "2px solid yellowgreen"
+        passic.className = "fas fa-check-circle";
+        req.style.display = "none";
+        eye.style.right = "50px";
     }
     else{
         cflag["password"] = 0;
-        spass.style.border = "2px solid red"
+        spass.style.border = "2px solid red";
+        passic.className = "";
+        if(cflag["password"] == 0 && spass.value.length !=0)
+        {
+            console.log("done");
+            req.style.display = "initial";
+        }    
+        eye.style.right = "20px";
     }
 
     repasscheck();
