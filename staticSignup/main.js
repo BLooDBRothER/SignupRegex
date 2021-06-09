@@ -31,7 +31,6 @@ function otpsend(){
 
 function backotp(){
     randno = Math.floor(Math.random() * (9999-1000)) + 1000;
-    console.log(randno);
     msgotp.style.display = "initial";
     msgotp.innerHTML = randno; 
     validmsg("OTP Sent Check your Mobile no");
@@ -80,7 +79,6 @@ sotp.addEventListener("click", function(){
     if(sotp.className == "fas fa-share-square rotp"){
         sotp.className = "fas fa-retweet rotp";
     }
-    console.log("inside");
     otpvalid = 0;
     sotpinp.value = "";
     disable();

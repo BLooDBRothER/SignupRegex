@@ -116,7 +116,6 @@ spass.addEventListener("input", () => {
     if(spass.value.length == 0){
         req.style.display="none";    }
     if(spass.value.length > 0){
-        console.log("in");
         req.style.display="initial";
     }
 
@@ -152,7 +151,6 @@ spass.addEventListener("input", () => {
         passic.className = "";
         if(cflag["password"] == 0 && spass.value.length !=0)
         {
-            console.log("done");
             req.style.display = "initial";
         }    
         eye.style.right = "20px";
