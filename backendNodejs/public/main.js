@@ -105,7 +105,6 @@ sotp.addEventListener("click", function(){
     if(sotp.className == "fas fa-share-square rotp"){
         sotp.className = "fas fa-retweet rotp";
     }
-    console.log("inside");
     otpvalid = 0;
     sotpinp.value = "";
     disable();
@@ -136,7 +135,6 @@ function formSubmit(e){
         "ph": sph.value,
         "pass": spass.value
     });
-    console.log(dataString);
     $.ajax({
         method: "POST",
         url: "/insert",
@@ -148,21 +146,3 @@ function formSubmit(e){
     });
     reset();
 }
-
-// login.addEventListener("submit", function(e){
-//     e.preventDefault();
-//     let dataString = JSON.stringify({
-//         "ph": ph.value,
-//         "pass": pass.value
-//     });
-//     console.log(dataString);
-//     $.ajax({
-//         method: "POST",
-//         url: "/insert",
-//         contentType : "application/json",
-//         data: dataString,
-//         success: function(data){
-//             console.log(data);
-//         }
-//     });
-// });
